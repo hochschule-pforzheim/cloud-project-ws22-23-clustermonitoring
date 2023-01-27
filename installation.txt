@@ -27,7 +27,7 @@ kubectl port-forward svc/kube-prometheus-grafana 8080:80
 # read username and password from kubernetes storage. Result is base64 encoded and needs to be decoded Default: username: "admin" and password: "prom-operator".
 kubectl get secret kube-prometheus-grafana -o jsonpath='{.data}'
 
-# now grafana is reachable under http://localhost:8888 in the browser.
+# now grafana is reachable under http://localhost:8080 in the browser.
 
 ooooo   ooooo                                                  ooo        ooooo                        o8o      .                       o8o                         .o. 
 `888'   `888'                                                  `88.       .888'                        `"'    .o8                       `"'                         888 
