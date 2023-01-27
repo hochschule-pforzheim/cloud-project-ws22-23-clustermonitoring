@@ -1,0 +1,41 @@
+######################################################################################
+# Cloud Computing Project
+# Kubernetes Cluster Monitoring
+# Benedict Menth, Erik Petsch, Kai Nagl and Nelli Veijo
+######################################################################################
+
+
+# install helm if not already present
+snap install helm --classic
+
+# add kube-prometheus repository to helm
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+# update helm repository
+helm repo update
+
+# install kube-prometheus
+helm install kube-prometheus prometheus-community/kube-prometheus-stack
+
+# check installaion
+kubectl get pods --all-namespaces
+kubectl get services
+
+# port-forward to access grafana
+kubectl port-forward svc/kube-prometheus-grafana 8080:80
+
+# read username and password from kubernetes storage. Result is base64 encoded and needs to be decoded Default: username: "admin" and password: "prom-operator".
+kubectl get secret kube-prometheus-grafana -o jsonpath='{.data}'
+
+# now grafana is reachable under http://localhost:8080 in the browser.
+
+ooooo   ooooo                                                  ooo        ooooo                        o8o      .                       o8o                         .o. 
+`888'   `888'                                                  `88.       .888'                        `"'    .o8                       `"'                         888 
+ 888     888   .oooo.   oo.ooooo.  oo.ooooo.  oooo    ooo       888b     d'888   .ooooo.  ooo. .oo.   oooo  .o888oo  .ooooo.  oooo d8b oooo  ooo. .oo.    .oooooooo 888 
+ 888ooooo888  `P  )88b   888' `88b  888' `88b  `88.  .8'        8 Y88. .P  888  d88' `88b `888P"Y88b  `888    888   d88' `88b `888""8P `888  `888P"Y88b  888' `88b  Y8P 
+ 888     888   .oP"888   888   888  888   888   `88..8'         8  `888'   888  888   888  888   888   888    888   888   888  888      888   888   888  888   888  `8' 
+ 888     888  d8(  888   888   888  888   888    `888'          8    Y     888  888   888  888   888   888    888 . 888   888  888      888   888   888  `88bod8P'  .o. 
+o888o   o888o `Y888""8o  888bod8P'  888bod8P'     .8'          o8o        o888o `Y8bod8P' o888o o888o o888o   "888" `Y8bod8P' d888b    o888o o888o o888o `8oooooo.  Y8P 
+                         888        888       .o..P'                                                                                                     d"     YD      
+                        o888o      o888o      `Y8P'                                                                                                      "Y88888P'      
+                                                                                                                                                                        
